@@ -7,7 +7,7 @@ const index = () => {
   const data = true;
 
   if (data) {
-    return <Redirect href="/(tabs)/home" />;
+    return <Redirect href="./(tabs)/home" />;
   }
 
   return (
