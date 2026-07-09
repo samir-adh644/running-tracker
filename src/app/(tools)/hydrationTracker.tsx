@@ -1,5 +1,8 @@
 import { COLORS } from "@/constants/colors";
-import { useState } from "react";
+import { saveStat } from "@/utils/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import {
   Dimensions,
   StyleSheet,
@@ -14,8 +17,27 @@ export default function HydrationTracker() {
   const { top } = useSafeAreaInsets();
   const [glasses, setGlasses] = useState(0);
 
-  const handleDrink = () => {
-    setGlasses((prev) => prev + 1);
+  const loadInitialHydration = async () => {
+    try {
+      const savedHydration = await AsyncStorage.getItem("hydration");
+      if (savedHydration !== null) {
+        setGlasses(parseInt(savedHydration, 10));
+      }
+    } catch (error) {
+      console.error("Failed to load local hydration tracking state", error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      loadInitialHydration();
+    }, []),
+  );
+
+  const handleDrink = async () => {
+    const nextCount = glasses + 1;
+    setGlasses(nextCount);
+    await saveStat("hydration", nextCount);
   };
 
   const handleReset = () => {

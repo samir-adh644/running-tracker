@@ -1,4 +1,5 @@
 import { COLORS } from "@/constants/colors";
+import { saveStat } from "@/utils/storage";
 import { useState } from "react";
 import {
   Keyboard,
@@ -18,7 +19,7 @@ export default function BMICalculator() {
   const [bmi, setBmi] = useState<string | null>(null);
   const [category, setCategory] = useState("");
 
-  const calculateBMI = () => {
+  const calculateBMI = async () => {
     Keyboard.dismiss();
 
     const w = parseFloat(weight);
@@ -34,6 +35,9 @@ export default function BMICalculator() {
 
     const bmiValue = w / (totalMeters * totalMeters);
     setBmi(bmiValue.toFixed(1));
+    const parsedData = parseFloat(bmiValue.toFixed(1));
+
+    await saveStat("bmi", parsedData);
 
     if (bmiValue < 18.5) setCategory("Underweight");
     else if (bmiValue >= 18.5 && bmiValue < 25) setCategory("Normal Weight");

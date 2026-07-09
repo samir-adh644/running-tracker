@@ -4,23 +4,27 @@ import { HeaderText } from "./HeaderText";
 
 type Props = {
   title: string;
-  data: number;
+  value: string;
+  status: string;
 };
 
-const Mydata = {
-  title: "BMI Index",
-  data: 21.5,
-  status: "Normal",
-};
-const { title, data, status } = Mydata;
-
-const statCard = () => {
+const statCard = ({ title, value, status }: Props) => {
   return (
     <View style={styles.mainContainer}>
       <HeaderText>{title}</HeaderText>
       <View style={styles.statDesigner}>
-        <Text style={styles.dataText}>{data}</Text>
-        <Text style={styles.statusText}>Your BMI index is {status}</Text>
+        <Text style={styles.dataText}>{value}</Text>
+        <Text
+          style={[
+            styles.statusText,
+            {
+              color: status === "Normal" ? "#34C759" : "#FF3B30",
+              backgroundColor: status === "Normal" ? "#E8F9EE" : "#FFEBEB",
+            },
+          ]}
+        >
+          Your {title} index is {status}
+        </Text>
       </View>
     </View>
   );
