@@ -1,13 +1,13 @@
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const stats = () => {
+const profile = () => {
   const { top } = useSafeAreaInsets();
   return (
     <View style={{ paddingTop: top }}>
-      <Text>stats</Text>
+      <Text>profile</Text>
     </View>
   );
 };
 
-export default stats;
+export default profile;
