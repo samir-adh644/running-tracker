@@ -1,16 +1,16 @@
-import { useState } from "react";
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Spacing } from "@/constants/theme";
-import { useProfile } from "./profile-context";
+import { useState } from "react";
+import {
+    Alert,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    TextInput,
+    View,
+} from "react-native";
+import { useProfile } from "../components/profile-context";
 
 // Small helper so every field matches the "label above value" look in the design
 const FloatingInput = ({
@@ -105,7 +105,10 @@ const FirstPage = ({ onNext }: FirstPageProps) => {
           onChangeText={(text) => updateField("name", text)}
         />
 
-        <ThemedText type="smallBold" style={[styles.sectionLabel, styles.sectionSpacing]}>
+        <ThemedText
+          type="smallBold"
+          style={[styles.sectionLabel, styles.sectionSpacing]}
+        >
           Your Details
         </ThemedText>
 
@@ -140,7 +143,9 @@ const FirstPage = ({ onNext }: FirstPageProps) => {
                 />
               </Pressable>
             </View>
-            <ThemedText style={styles.detailHint}>in fts &amp; inches</ThemedText>
+            <ThemedText style={styles.detailHint}>
+              in fts &amp; inches
+            </ThemedText>
           </View>
 
           <View style={styles.detailColumn}>
@@ -155,7 +160,10 @@ const FirstPage = ({ onNext }: FirstPageProps) => {
           </View>
         </View>
 
-        <ThemedText type="smallBold" style={[styles.sectionLabel, styles.sectionSpacing]}>
+        <ThemedText
+          type="smallBold"
+          style={[styles.sectionLabel, styles.sectionSpacing]}
+        >
           Daily Step Goal
         </ThemedText>
         <ThemedText style={styles.detailHint}>
