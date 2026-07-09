@@ -1,11 +1,11 @@
 import { Tabs } from "expo-router";
-import { ChartPie, House, PersonStanding } from "lucide-react-native";
+import { ChartPie, House, PersonStanding, Toolbox } from "lucide-react-native";
 
 const TabLayout = () => {
   return (
     <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => <House size={28} color={color} />,
@@ -16,6 +16,14 @@ const TabLayout = () => {
         options={{
           title: "Stats",
           tabBarIcon: ({ color }) => <ChartPie size={28} color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="tools"
+        options={{
+          title: "Tools",
+          tabBarIcon: ({ color }) => <Toolbox size={28} color={color} />,
         }}
       />
 

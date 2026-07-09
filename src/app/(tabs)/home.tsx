@@ -1,14 +1,13 @@
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const profile = () => {
+const home = () => {
   const { top } = useSafeAreaInsets();
   return (
     <View style={{ paddingTop: top }}>
-      <Text>profile</Text>
+      <Text>home</Text>
     </View>
   );
 };
 
-export default profile;
-// yo page ma profile ko lagi code lekhne
+export default home;
