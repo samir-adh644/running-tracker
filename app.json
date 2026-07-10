@@ -8,7 +8,7 @@
     "scheme": "runningtracker",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/images/altIcon.png"
     },
     "android": {
       "permissions": [
@@ -16,10 +16,8 @@
         "android.permission.RECORD_AUDIO"
       ],
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#F4F6FA",
+        "foregroundImage": "./assets/images/altIcon.png"
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.samircodes644.fittrack"
@@ -45,9 +43,9 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "backgroundColor": "#F4F6FA",
+          "image": "./assets/images/altSplash.png",
+          "imageWidth": 200
         }
       ]
     ],
