@@ -52,7 +52,7 @@ const stats = () => {
         />
         <StatCard
           title="Distance Travelled"
-          value={stats.distance.toString()}
+          value={(stats.steps * 0.72).toString()}
           status="None"
         />
       </ScrollView>
