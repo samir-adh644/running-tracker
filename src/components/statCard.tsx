@@ -5,69 +5,55 @@ import { HeaderText } from "./HeaderText";
 type Props = {
   title: string;
   value: string;
-  status: string;
+  message?: string;
+  isAlert?: boolean;
 };
 
-const statCard = ({ title, value, status }: Props) => {
+export const StatCard = ({ title, value, message, isAlert = false }: Props) => {
   return (
     <View style={styles.mainContainer}>
       <HeaderText>{title}</HeaderText>
       <View style={styles.statDesigner}>
         <Text style={styles.dataText}>{value}</Text>
-        <Text
-          style={[
-            styles.statusText,
-            {
-              color: status === "Normal" ? "#34C759" : "#FF3B30",
-              backgroundColor: status === "Normal" ? "#E8F9EE" : "#FFEBEB",
-            },
-          ]}
-        >
-          Your {title} index is {status}
-        </Text>
+
+        {message && (
+          <Text
+            style={[
+              styles.statusText,
+              {
+                color: isAlert ? "#FF3B30" : "#34C759",
+                backgroundColor: isAlert ? "#FFEBEB" : "#E8F9EE",
+              },
+            ]}
+          >
+            {message}
+          </Text>
+        )}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    paddingHorizontal: 16,
-    marginVertical: 12,
-  },
+  mainContainer: { paddingBottom: 15 },
   statDesigner: {
-    backgroundColor: COLORS.background,
-    borderRadius: 16,
-    padding: 24,
     marginTop: 8,
-    alignItems: "center",
-    justifyContent: "center",
-
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    height: 100,
+    backgroundColor: COLORS.card,
+    borderRadius: 10,
+    padding: 10,
   },
-  dataText: {
-    fontSize: 48,
-    fontWeight: "800",
-    color: COLORS.primary,
-    letterSpacing: -1,
-    marginBottom: 6,
-  },
+  dataText: { fontSize: 24, fontWeight: "600" },
   statusText: {
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#34C759",
-    backgroundColor: "#E8F9EE",
+    paddingHorizontal: 12,
     paddingVertical: 6,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    borderRadius: 8,
+    marginTop: 6,
     overflow: "hidden",
+    alignSelf: "flex-start",
+    fontSize: 14,
+    fontWeight: "500",
   },
 });
 
-export default statCard;
+export default StatCard;

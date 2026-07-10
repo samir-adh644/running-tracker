@@ -1,12 +1,11 @@
+import { COLORS } from "@/constants/colors";
 import { EventSubscription } from "expo-modules-core";
 import { Pedometer } from "expo-sensors";
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-// Import your existing storage utility layer here
-import { COLORS } from "@/constants/colors";
 import { getAllStats, saveStat } from "../../utils//storage";
 
-export default function App() {
+export default function home() {
   const [displayedStepCount, setDisplayedStepCount] = useState<number>(0);
   const liveStepsRef = useRef<number>(0);
 
@@ -15,28 +14,25 @@ export default function App() {
     let uiInterval: ReturnType<typeof setInterval> | undefined;
 
     const startPedometer = async () => {
-      // 1. Hydrate state using your custom getAllStats utility
       const savedStats = await getAllStats();
       const initialSteps = savedStats.steps;
 
       setDisplayedStepCount(initialSteps);
-      liveStepsRef.current = initialSteps; // Keep baseline aligned
+      liveStepsRef.current = initialSteps;
 
       const isAvailable = await Pedometer.isAvailableAsync();
 
       if (isAvailable) {
-        // 2. Continually monitor background steps
         subscription = Pedometer.watchStepCount((result) => {
           liveStepsRef.current = result.steps;
         });
 
-        // 3. Update the UI and persist using saveStat every 60 seconds
         uiInterval = setInterval(async () => {
           const currentTotal = liveStepsRef.current;
 
           setDisplayedStepCount(currentTotal);
-          await saveStat("steps", currentTotal); // Uses your custom helper directly
-        }, 60000);
+          await saveStat("steps", currentTotal);
+        }, 30000);
       }
     };
 
