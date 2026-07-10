@@ -4,6 +4,8 @@ import { useState } from "react";
 import {
   Alert,
   Image,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -95,10 +97,16 @@ const Profile = () => {
   };
 
   return (
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    keyboardVerticalOffset={top}
+    >
     <ScrollView
       style={[styles.scrollContainer, { paddingTop: top }]}
       contentContainerStyle={styles.container}
       keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
     >
       <ThemedText type="subtitle" style={styles.title}>
         Your Profile
@@ -228,6 +236,7 @@ const Profile = () => {
         </ThemedText>
       </Pressable>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
