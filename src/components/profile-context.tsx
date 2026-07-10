@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export type ProfileData = {
   name: string;
@@ -13,12 +20,17 @@ export type ProfileData = {
 
 type ProfileContextValue = {
   data: ProfileData;
-  updateField: <K extends keyof ProfileData>(key: K, value: ProfileData[K]) => void;
+  isLoading: boolean;
+  updateField: <K extends keyof ProfileData>(
+    key: K,
+    value: ProfileData[K],
+  ) => void;
   setLastUpdatedToday: () => void;
+  saveProfileToStorage: (customData?: ProfileData) => Promise<void>;
 };
 
 const defaultData: ProfileData = {
-  name: "",
+  name: "Alex Johnson",
   heightFt: "5",
   heightIn: "9",
   weight: "74.5",
@@ -28,16 +40,48 @@ const defaultData: ProfileData = {
   lastUpdated: "July 10, 2026",
 };
 
-const ProfileContext = createContext<ProfileContextValue | undefined>(undefined);
+const ProfileContext = createContext<ProfileContextValue | undefined>(
+  undefined,
+);
 
 export const ProfileProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<ProfileData>(defaultData);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProfileData = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem("profiledata");
+        if (storedData) {
+          setData(JSON.parse(storedData));
+        }
+      } catch (error) {
+        console.error("Failed to load profile data from storage", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProfileData();
+  }, []);
 
   const updateField = <K extends keyof ProfileData>(
     key: K,
-    value: ProfileData[K]
+    value: ProfileData[K],
   ) => {
-    setData((prev) => ({ ...prev, [key]: value }));
+    setData((prev) => {
+      const updated = { ...prev, [key]: value };
+      return updated;
+    });
+  };
+
+  const saveProfileToStorage = async (customData?: ProfileData) => {
+    try {
+      const dataToSave = customData || data;
+      await AsyncStorage.setItem("profiledata", JSON.stringify(dataToSave));
+    } catch (error) {
+      console.error("Failed to save profile data", error);
+    }
   };
 
   const setLastUpdatedToday = () => {
@@ -47,11 +91,24 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
       day: "numeric",
       year: "numeric",
     });
-    setData((prev) => ({ ...prev, lastUpdated: formatted }));
+
+    setData((prev) => {
+      const updated = { ...prev, lastUpdated: formatted };
+      saveProfileToStorage(updated);
+      return updated;
+    });
   };
 
   return (
-    <ProfileContext.Provider value={{ data, updateField, setLastUpdatedToday }}>
+    <ProfileContext.Provider
+      value={{
+        data,
+        isLoading,
+        updateField,
+        setLastUpdatedToday,
+        saveProfileToStorage,
+      }}
+    >
       {children}
     </ProfileContext.Provider>
   );
