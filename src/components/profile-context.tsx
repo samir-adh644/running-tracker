@@ -25,7 +25,7 @@ const defaultData: ProfileData = {
   age: "32",
   stepGoal: "10000",
   photoUri: null,
-  lastUpdated: "Sep 12, 2023",
+  lastUpdated: "July 10, 2026",
 };
 
 const ProfileContext = createContext<ProfileContextValue | undefined>(undefined);
