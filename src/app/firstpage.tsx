@@ -3,16 +3,15 @@ import { ThemedView } from "@/components/themed-view";
 import { Spacing } from "@/constants/theme";
 import { useState } from "react";
 import {
-    Alert,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    TextInput,
-    View,
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
 } from "react-native";
 import { useProfile } from "../components/profile-context";
 
-// Small helper so every field matches the "label above value" look in the design
 const FloatingInput = ({
   placeholder,
   value,

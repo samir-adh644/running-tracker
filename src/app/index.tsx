@@ -50,7 +50,6 @@ const RootIndex = () => {
     );
   }
 
-  // 2. If goal exists, automatically redirect out of the setup flow
   if (hasGoal) {
     return <Redirect href="./(tabs)/home" />;
   }
