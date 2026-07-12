@@ -20,6 +20,7 @@ FitTrack is a lightweight, intuitive, and modern full-stack fitness tracking app
 ###  For Android Mobile Apps (.apk)
 
 *   **Cloud Drive Link:** https://drive.google.com/file/d/1jS8ErpNxGpDnCilAjglyNMxognA-fwS-/view?usp=drive_link
+*   (Note:- Some devices may not ask for Physical Activity Permission due to security reasons so be sure to check and give the Physical Activity permission manually after the app is successfully installed)
 
 ---
 
